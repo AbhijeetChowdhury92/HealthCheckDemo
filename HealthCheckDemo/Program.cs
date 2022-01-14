@@ -16,9 +16,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ResponseTimeHealthCheck>();
 
 // Healthcheck Services
+// https://hamedfathi.me/a-professional-asp.net-core-api-health-check/
+// https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
 builder.Services.AddHealthChecks()
     .AddCheck<ResponseTimeHealthCheck>("Network speed test", tags: new[] { "service" })
-    .AddCheck("Database", () => HealthCheckResult.Healthy("Database connection is healthy"), new[] { "database", "sql" });
+    .AddProcessHealthCheck("HealthCheckWorkerService", p => p.Length > 0, "HealthCheck WorkerService", tags: new[] { "process", "service", "worker-service", "background-service" })
+    .AddProcessAllocatedMemoryHealthCheck(512, "Process memory allocation", tags: new[] { "memory", "process-memory", "process" }) // max memory to allocate in MB exceeding which results in Unhealthy
+    .AddDiskStorageHealthCheck(s => s.AddDrive("C:\\", 1024), "Disk Storage", tags: new[] { "storage", "disk-storage" }) // 1024 MB (1 GB) free minimum
+    .AddSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("SQLServer"),
+        healthQuery: "SELECT 1",
+        name: "SQL Server Database",
+        tags: new[] { "sql", "server", "db", "database" });
 
 var app = builder.Build();
 
