@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HealthCheckerDemo.Pages
+namespace DashboardUI.Pages
 {
     public class PrivacyModel : PageModel
     {

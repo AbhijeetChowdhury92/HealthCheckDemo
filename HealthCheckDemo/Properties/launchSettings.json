@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "HealthCheckDemo": {
+    "API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "healthz",

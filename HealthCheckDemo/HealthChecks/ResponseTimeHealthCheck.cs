@@ -1,4 +1,4 @@
-﻿namespace HealthCheckDemo.HealthChecks;
+﻿namespace API.HealthChecks;
 
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

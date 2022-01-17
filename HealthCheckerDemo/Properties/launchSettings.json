@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "HealthCheckerDemo": {
+    "DashboardUI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "healthcheck",

@@ -1,4 +1,4 @@
-namespace HealthCheckDemo
+namespace API
 {
     public class WeatherForecast
     {
