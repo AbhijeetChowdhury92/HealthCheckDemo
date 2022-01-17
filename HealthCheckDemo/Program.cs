@@ -22,9 +22,10 @@ builder.Services.AddSingleton<ResponseTimeHealthCheck>();
 builder.Services.AddHealthChecks()
     .AddCheck<ResponseTimeHealthCheck>("Network speed test", tags: new[] { "service" })
     .AddProcessHealthCheck(
-        processName: "HealthCheckWorkerService", 
+        processName: "WorkerService", 
         predicate: p => p.Length > 0, 
-        name: "HealthCheck WorkerService",
+        name: "WorkerService Check",
+        failureStatus: HealthStatus.Degraded,
         tags: new[] { "process", "service", "worker-service", "background-service" })
     .AddProcessAllocatedMemoryHealthCheck(
         maximumMegabytesAllocated: 512, // max memory to allocate in MB exceeding which results in Unhealthy
@@ -34,12 +35,6 @@ builder.Services.AddHealthChecks()
         setup: s => s.AddDrive("C:\\", 1024), // 1024 MB (1 GB) free minimum
         name: "Disk Storage",
         tags: new[] { "storage", "disk-storage" })
-    .AddSqlServer(
-        connectionString: builder.Configuration.GetConnectionString("SQLServer"),
-        healthQuery: "SELECT 1",
-        name: "SQL Server Database",
-        failureStatus: HealthStatus.Degraded,
-        tags: new[] { "sql", "server", "db", "database" })
     .AddUrlGroup(
         uri:new Uri("https://dev-portal.caireinc.com/"),
         name: "myCaire portal- Dev",

@@ -28,6 +28,7 @@ app.MapHealthChecksUI(config =>
 {
     config.UIPath = "/healthcheck";
     config.ApiPath = "/api/healthcheck";
+    config.AddCustomStylesheet("style.css");
 });
 
 app.MapRazorPages();
