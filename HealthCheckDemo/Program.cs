@@ -25,22 +25,20 @@ builder.Services.AddHealthChecks()
         processName: "HealthCheckWorkerService", 
         predicate: p => p.Length > 0, 
         name: "HealthCheck WorkerService",
-        failureStatus: HealthCheckResult.Unhealthy("Service not performing well!").Status,
         tags: new[] { "process", "service", "worker-service", "background-service" })
     .AddProcessAllocatedMemoryHealthCheck(
         maximumMegabytesAllocated: 512, // max memory to allocate in MB exceeding which results in Unhealthy
         name: "Process memory allocation",
-        failureStatus: HealthCheckResult.Unhealthy("Maximum memory allocation exceeded!").Status,
         tags: new[] { "memory", "process-memory", "process" }) 
     .AddDiskStorageHealthCheck(
         setup: s => s.AddDrive("C:\\", 1024), // 1024 MB (1 GB) free minimum
         name: "Disk Storage",
-        failureStatus: HealthCheckResult.Unhealthy("Maximum disk storage allocation exceeded!").Status,
         tags: new[] { "storage", "disk-storage" })
     .AddSqlServer(
         connectionString: builder.Configuration.GetConnectionString("SQLServer"),
         healthQuery: "SELECT 1",
         name: "SQL Server Database",
+        failureStatus: HealthStatus.Degraded,
         tags: new[] { "sql", "server", "db", "database" })
     .AddUrlGroup(
         uri:new Uri("https://dev-portal.caireinc.com/"),
