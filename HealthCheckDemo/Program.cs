@@ -28,7 +28,19 @@ builder.Services.AddHealthChecks()
         connectionString: builder.Configuration.GetConnectionString("SQLServer"),
         healthQuery: "SELECT 1",
         name: "SQL Server Database",
-        tags: new[] { "sql", "server", "db", "database" });
+        tags: new[] { "sql", "server", "db", "database" })
+    .AddUrlGroup(
+        uri:new Uri("https://dev-portal.caireinc.com/"),
+        name: "myCaire portal- Dev",
+        tags: new[] { "sites", "uri", "webpages", "dev" })
+    .AddUrlGroup(
+        uri: new Uri("https://stage-portal.caireinc.com/"),
+        name: "myCaire Portal- Staging",
+        tags: new[] { "sites", "uri", "webpages", "stage", "staging" })
+    .AddUrlGroup(
+        uri: new Uri("https://portal.mycaire.com/"),
+        name: "myCaire Portal- Production",
+        tags: new[] { "sites", "uri", "webpages", "prod", "main", "production" });
 
 var app = builder.Build();
 
