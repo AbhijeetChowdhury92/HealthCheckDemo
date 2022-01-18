@@ -26,8 +26,8 @@ app.UseAuthorization();
 
 app.MapHealthChecksUI(config =>
 {
-    config.UIPath = "/healthcheck";
-    config.ApiPath = "/api/healthcheck";
+    config.UIPath = "/";
+    config.ApiPath = "/api";
     config.AddCustomStylesheet("style.css");
 });
 
