@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  api:
+    image: healthcheckdemo/api:latest
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+
+  mvc:
+    image: healthcheckdemo/mvc:latest
+    build:
+      context: .
+      dockerfile: MVC/Dockerfile
+
+  worker-service:
+    image: healthcheckdemo/workerservice:latest
+    build:
+      context: .
+      dockerfile: WorkerService/Dockerfile
+
+  healthcheck-ui:
+    image: healthcheckdemo/healthcheck:latest
+    build:
+      context: .
+      dockerfile: DashboardUI/Dockerfile
+    depends_on:
+        - api
+        - mvc
+        - worker-service
