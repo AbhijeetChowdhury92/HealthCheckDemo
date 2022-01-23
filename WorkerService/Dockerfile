@@ -5,10 +5,10 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["HealthCheckWorkerService/WorkerService.csproj", "HealthCheckWorkerService/"]
-RUN dotnet restore "HealthCheckWorkerService/WorkerService.csproj"
+COPY ["WorkerService/WorkerService.csproj", "WorkerService/"]
+RUN dotnet restore "WorkerService/WorkerService.csproj"
 COPY . .
-WORKDIR "/src/HealthCheckWorkerService"
+WORKDIR "/src/WorkerService"
 RUN dotnet build "WorkerService.csproj" -c Release -o /app/build
 
 FROM build AS publish

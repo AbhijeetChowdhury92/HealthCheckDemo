@@ -2,15 +2,16 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
+COPY ["DashboardUI/style.css", "."]
 EXPOSE 57914
 EXPOSE 44387
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["HealthCheckerDemo/DashboardUI.csproj", "HealthCheckerDemo/"]
-RUN dotnet restore "HealthCheckerDemo/DashboardUI.csproj"
+COPY ["DashboardUI/DashboardUI.csproj", "DashboardUI/"]
+RUN dotnet restore "DashboardUI/DashboardUI.csproj"
 COPY . .
-WORKDIR "/src/HealthCheckerDemo"
+WORKDIR "/src/DashboardUI"
 RUN dotnet build "DashboardUI.csproj" -c Release -o /app/build
 
 FROM build AS publish

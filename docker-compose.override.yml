@@ -1,26 +1,32 @@
-version: '3.4'
+version: '3.9'
 
 services:
   api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:44331;http://+:21267
+      - ASPNETCORE_HTTPS_PORT=44331
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=passw0rd
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
     ports:
-      - "21267"
-      - "44331"
+      - "21267:21267"
+      - "44331:44331"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./conf.d/https/:/https/
   mvc:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:44388;http://+:58502
+      - ASPNETCORE_HTTPS_PORT=44388
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=passw0rd
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
     ports:
-      - "58502"
-      - "44388"
+      - "58502:58502"
+      - "44388:44388"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./conf.d/https/:/https/
 
   worker-service:
     environment:
@@ -30,9 +36,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:44387;http://+:57914
+      - ASPNETCORE_HTTPS_PORT=44387
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=passw0rd
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/dev_cert.pfx
     ports:
-      - "57914"
-      - "44387"
+      - "57914:57914"
+      - "44387:44387"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./conf.d/https/:/https/

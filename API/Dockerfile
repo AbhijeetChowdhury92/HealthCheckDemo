@@ -7,10 +7,10 @@ EXPOSE 44331
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["HealthCheckDemo/API.csproj", "HealthCheckDemo/"]
-RUN dotnet restore "HealthCheckDemo/API.csproj"
+COPY ["API/API.csproj", "API/"]
+RUN dotnet restore "API/API.csproj"
 COPY . .
-WORKDIR "/src/HealthCheckDemo"
+WORKDIR "/src/API"
 RUN dotnet build "API.csproj" -c Release -o /app/build
 
 FROM build AS publish

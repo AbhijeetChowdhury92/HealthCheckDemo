@@ -7,10 +7,10 @@ EXPOSE 44388
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["HealthCheckMVCDemo/MVC.csproj", "HealthCheckMVCDemo/"]
-RUN dotnet restore "HealthCheckMVCDemo/MVC.csproj"
+COPY ["MVC/MVC.csproj", "MVC/"]
+RUN dotnet restore "MVC/MVC.csproj"
 COPY . .
-WORKDIR "/src/HealthCheckMVCDemo"
+WORKDIR "/src/MVC"
 RUN dotnet build "MVC.csproj" -c Release -o /app/build
 
 FROM build AS publish
