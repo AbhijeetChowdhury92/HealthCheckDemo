@@ -6,25 +6,36 @@ services:
     build:
       context: .
       dockerfile: API/Dockerfile
+    networks:
+      - health-network
 
   mvc:
     image: healthcheckdemo/mvc:latest
     build:
       context: .
       dockerfile: MVC/Dockerfile
+    networks:
+      - health-network
 
   worker-service:
     image: healthcheckdemo/workerservice:latest
     build:
       context: .
       dockerfile: WorkerService/Dockerfile
+    networks:
+      - health-network
 
   healthcheck-ui:
     image: healthcheckdemo/healthcheck:latest
     build:
       context: .
       dockerfile: DashboardUI/Dockerfile
+    networks:
+      - health-network
     depends_on:
         - api
         - mvc
         - worker-service
+networks:
+  health-network:
+    external: true
