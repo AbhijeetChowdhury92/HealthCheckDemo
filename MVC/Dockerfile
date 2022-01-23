@@ -1,6 +1,8 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+COPY ca-cert.crt /usr/local/share/ca-certificates/ca-cert.crt
+RUN chmod 644 /usr/local/share/ca-certificates/ca-cert.crt && update-ca-certificates
 WORKDIR /app
 EXPOSE 58502
 EXPOSE 44388
